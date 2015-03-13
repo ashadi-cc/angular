@@ -1,0 +1,20 @@
+pertama 
+npm init untuk membuat package.json 
+
+npm install grunt --save-dev untuk install grunt dan tambah otomatis di packet.json 
+npm install grunt-contrib-concat --save-dev 
+npm install grunt-contrib-less --save-dev 
+npm install grunt-contrib-uglify --save-dev 
+npm install grunt-contrib-watch --save-dev
+
+
+cara intall bower component 
+bower install angular -S
+bower install jquery -S
+
+
+cara menjalankan grunt 
+grunt less
+grunt concat
+grunt uglify
+grunt watch 

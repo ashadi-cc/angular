@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<title>Angular CRUD with bootstrap</title>
+		<link rel="stylesheet" type="text/css" href="dist/css/styles.css">
+		<!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"/>-->
+		<script type="text/javascript" src="dist/js/lib.js"></script>
+		<script type="text/javascript" src="dist/js/app.js"></script>
+	</head>
+	<body>
+
+	    <div class="blog-masthead">
+	      <div class="container">
+	        <nav class="blog-nav">
+	          <a class="blog-nav-item active" href="#">Home</a>
+	          <a class="blog-nav-item" href="#">About</a>
+	        </nav>
+	      </div>
+	    </div>
+
+	    <div class="container">
+	      <div class="blog-header">
+	        <h1 class="blog-title">The Simple Crud</h1>
+	        <p class="lead blog-description">Crud Application build by angular and bootstrap by Ashadi</p>
+	      </div>	
+	      <div class="row">
+	      	<div class="col-sm-12 blog-main" ng-controller="listController">
+
+			    <script type="text/ng-template" id="myModalContent.html">
+			    	<div class="modal-header dialog-header-error">
+			    		 <h3 class="modal-title">{{ title }}</h3>
+			    	</div>
+			    	<div class="modal-body">
+			    		<form class="horizontal" novalidate name="myForm">
+						  <div class="form-group">
+						    <label for="">Name</label>
+						    <input type="text" class="form-control" id="" placeholder="Enter name" name="name" ng-model="customer.name" required>
+								<span ng-show="myForm.name.$error.required && !myForm.name.$pristine" class="help-inline">
+        							Required
+        						</span>						    
+						  </div>
+						  <div class="form-group">
+						    <label for="">Address</label>
+						    <input type="text" class="form-control" id="" placeholder="Enter address" name="address" ng-model="customer.address">
+						  </div>			    		
+						  <div class="form-group">
+						    <label for="">Email address</label>
+						    <input type="email" class="form-control" id="" placeholder="Enter email" name="email" ng-model="customer.email" required>
+						    <span class="help-inline" ng-show="myForm.email.$error.required && !myForm.email.$pristine">
+						    	Required
+						    </span>
+						    <span class="help-inline" ng-show="myForm.email.$error.email">
+						       Not email
+						    </span>
+						  </div>			    		
+						  <div class="form-group">
+						    <label for="">Website</label>
+						    <input type="url" class="form-control" id="" placeholder="Enter website" name="website" ng-model="customer.website">
+						    <span ng-show="myForm.website.$error.url" class="help-inline">
+						    	is not url
+						    </span>
+						  </div>			    		
+			    		</form>
+			    	</div>
+			        <div class="modal-footer">
+			            <button class="btn btn-primary" ng-click="ok()" ng-disabled="myForm.$invalid">OK</button>
+			            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+			        </div>			    	
+			    </script>	      		
+	      		<div class="row">
+	      			<input type="text" class="col-sm-4 pull-right" placeholder="search name" ng-model="search.name">
+	      		</div>
+	      		
+	      		<table class="table">
+	      			<thead>
+	      				<tr>
+	      					<th class="chckbox">&nbsp;</th>
+	      					<th>Name</th>
+	      					<th>Address</th>
+	      					<th>Email</th>
+	      					<th>Website</th>
+	      					<th>Action</th>
+	      				</tr>
+	      			</thead>
+	      			<tbody>
+	      				<tr ng-repeat="cust in customers | filter:search">
+	      					<td>
+	      						<input type="checkbox" ng-model="cust.checked">
+	      					</td>
+	      					<td class="done-{{ cust.checked }}">{{ cust.name }}</td>
+	      					<td class="done-{{ cust.checked }}">{{ cust.address }}</td>
+	      					<td class="done-{{ cust.checked }}">{{ cust.email }}</td>
+	      					<td class="done-{{ cust.checked }}">{{ cust.website }}</td>
+	      					<td>
+	      						<div class="btn-group">
+	      							<a href="#" class="btn btn-primary btn-sm" title="Edit" ng-click="edit(cust)">
+	      								<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+	      							</a>
+	      							<a href="#" class="btn btn-danger btn-sm" title="Remove" ng-click="remove(cust)">
+	      								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+	      							</a>	      							
+	      						</div>
+	      					</td>
+	      				</tr>
+	      			</tbody>
+	      		</table>
+	      		<div class="row">
+	      			<div class="col-sm-10">
+	      				<a href="#" class="btn btn-success" ng-click="addNew()">
+	      					Add
+	      				</a>
+	      				<a href="#" class="btn btn-danger" ng-click="removeSelected()">
+	      					Remove Selected Item
+	      				</a>
+	      			</div>
+	      			<div class="col-sm-2">
+	      				<h3>Total: {{ getTotal() }}</h3>
+	      			</div>
+	      		</div>
+	      	</div>
+	      </div>    	
+	    </div>
+
+	</body>
+</html>
