@@ -1,4 +1,15 @@
 var app = angular.module("myApp", ['ui.bootstrap']);
+app.directive('rowCustomer', function(){
+	return {
+		restrict:'E',
+		templateUrl:'templates/customers.html',
+		scope:{
+			custdata:'=info',
+			filterdata:'=search'
+		},
+		controller:'rowController'
+	};
+});
 app.controller('listController',function($scope,$filter,$modal){
 	$scope.customers = [
 		{name:"Ashadi",address:"Indonesia",email:"gmail@ashadi.com",website:"http://www.berdikaritech.com",checked:false},
@@ -10,31 +21,6 @@ app.controller('listController',function($scope,$filter,$modal){
 		return $scope.customers.length;
 	}
 
-	$scope.edit = function(item){
-	    var modalInstance = $modal.open({
-	      templateUrl: 'myModalContent.html',
-	      controller:'modalFormController',
-	      //windowClass:'modal fade in',
-	      resolve: {
-	      	customer: function(){
-	      		return angular.copy(item);
-	      	},
-	      	title:function(){
-	      		return 'Edit data';
-	      	}
-	      }
-	    });
-
-	     modalInstance.result.then(function (customer) {
-	     	var index = $scope.customers.indexOf(item); 
-	     	$scope.customers[index] = customer;
-	     });
-	}
-
-	$scope.remove = function(item){
-		var index = $scope.customers.indexOf(item);
-		$scope.customers.splice(index,1);
-	}
 
 	$scope.removeSelected = function(){
 		var not_removed = $filter('filter')($scope.customers,{checked:false});
@@ -68,7 +54,6 @@ app.controller('listController',function($scope,$filter,$modal){
 
 
 app.controller('modalFormController',function($scope,$modalInstance,customer,title){
-	$scope.tmp =12;
 	$scope.customer = customer;
 	$scope.title = title;
 	$scope.ok = function(){
@@ -78,4 +63,33 @@ app.controller('modalFormController',function($scope,$modalInstance,customer,tit
 	$scope.cancel = function(){
 		$modalInstance.dismiss('cancel');
 	}
+});
+app.controller('rowController', function($scope,$modal){
+
+	$scope.edit = function(item){
+	    var modalInstance = $modal.open({
+	      templateUrl: 'myModalContent.html',
+	      controller:'modalFormController',
+	      //windowClass:'modal fade in',
+	      resolve: {
+	      	customer: function(){
+	      		return angular.copy(item);
+	      	},
+	      	title:function(){
+	      		return 'Edit data';
+	      	}
+	      }
+	    });
+
+	     modalInstance.result.then(function (customer) {
+	     	var index = $scope.custdata.indexOf(item); 
+	     	$scope.custdata[index] = customer;
+	     });
+	}
+
+	$scope.remove = function(item){
+		var index = $scope.custdata.indexOf(item);
+		$scope.custdata.splice(index,1);
+	}
+
 });
