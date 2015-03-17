@@ -1,0 +1,33 @@
+<table class="table">
+	<thead>
+		<tr>
+			<th class="chckbox">&nbsp;</th>
+			<th>Name</th>
+			<th>Address</th>
+			<th>Email</th>
+			<th>Website</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="cust in custdata | filter:filterdata">
+			<td>
+				<input type="checkbox" ng-model="cust.checked">
+			</td>
+			<td class="done-{{ cust.checked }}">{{ cust.name }}</td>
+			<td class="done-{{ cust.checked }}">{{ cust.address }}</td>
+			<td class="done-{{ cust.checked }}">{{ cust.email }}</td>
+			<td class="done-{{ cust.checked }}">{{ cust.website }}</td>
+			<td>
+				<div class="btn-group">
+					<a href="#" class="btn btn-primary btn-sm" title="Edit" ng-click="edit(cust)">
+						<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+					</a>
+					<a href="#" class="btn btn-danger btn-sm" title="Remove" ng-click="remove(cust)">
+						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+					</a>	      							
+				</div>
+			</td>
+		</tr>		
+	</tbody>
+</table>

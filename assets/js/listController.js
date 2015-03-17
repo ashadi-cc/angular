@@ -9,31 +9,6 @@ app.controller('listController',function($scope,$filter,$modal){
 		return $scope.customers.length;
 	}
 
-	$scope.edit = function(item){
-	    var modalInstance = $modal.open({
-	      templateUrl: 'myModalContent.html',
-	      controller:'modalFormController',
-	      //windowClass:'modal fade in',
-	      resolve: {
-	      	customer: function(){
-	      		return angular.copy(item);
-	      	},
-	      	title:function(){
-	      		return 'Edit data';
-	      	}
-	      }
-	    });
-
-	     modalInstance.result.then(function (customer) {
-	     	var index = $scope.customers.indexOf(item); 
-	     	$scope.customers[index] = customer;
-	     });
-	}
-
-	$scope.remove = function(item){
-		var index = $scope.customers.indexOf(item);
-		$scope.customers.splice(index,1);
-	}
 
 	$scope.removeSelected = function(){
 		var not_removed = $filter('filter')($scope.customers,{checked:false});
